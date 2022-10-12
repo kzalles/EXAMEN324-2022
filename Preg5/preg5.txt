@@ -1,0 +1,17 @@
+DROP FUNCTION `Promedio_x_alumno1`; 
+CREATE DEFINER=`moyo`@`%` FUNCTION `Promedio_x_alumno1`(`ciP` INT(11)) RETURNS FLOAT(5,2) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER begin declare promedio float(5,2); set promedio = (select SUM((i.nota1+i.nota2+i.nota3)/3) as PROMEDIO from inscripcion i inner join persona p on p.CI = i.PERSONA_CI WHERE i.PERSONA_CI = ciP GROUP BY i.PERSONA_CI); return promedio; end
+
+
+
+
+select 
+avg (case when p.Departamento='01' then Promedio_x_alumno1(i.PERSONA_CI) end )CH,
+avg (case when p.Departamento='02' then Promedio_x_alumno1(i.PERSONA_CI) end )LP,
+avg (case when p.Departamento='03' then Promedio_x_alumno1(i.PERSONA_CI) end )CB,
+avg (case when p.Departamento='04' then Promedio_x_alumno1(i.PERSONA_CI) end )RU,
+avg (case when p.Departamento='05' then Promedio_x_alumno1(i.PERSONA_CI) end )PT,
+avg (case when p.Departamento='06' then Promedio_x_alumno1(i.PERSONA_CI) end )TA,
+avg (case when p.Departamento='07' then Promedio_x_alumno1(i.PERSONA_CI) end )SC,
+avg (case when p.Departamento='08' then Promedio_x_alumno1(i.PERSONA_CI) end )BN,
+avg (case when p.Departamento='09' then Promedio_x_alumno1(i.PERSONA_CI) end )PN
+from inscripcion i inner join persona p on p.CI = i.PERSONA_CI
